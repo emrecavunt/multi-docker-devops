@@ -9,7 +9,7 @@ script:
   - docker run emrecavunt/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t emrecavunt/multi-web ./client
+  - docker build -t emrecavunt/multi-web ./web
   - docker build -t emrecavunt/multi-nginx ./nginx
   - docker build -t emrecavunt/multi-server ./server
   - docker build -t emrecavunt/multi-woker ./worker
