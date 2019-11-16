@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t emrecavunt/react-test -f ./web/Dockerfile.dev ./web
+
+script:
+  - docker run emrecavunt/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t emrecavunt/multi-web ./client
+  - docker build -t emrecavunt/multi-nginx ./nginx
+  - docker build -t emrecavunt/multi-server ./server
+  - docker build -t emrecavunt/multi-woker ./worker
+  #Log in to the docker CLI 
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  - docker push emrecavunt/multi-web
+  - docker push emrecavunt/multi-nginx
+  - docker push emrecavunt/multi-server
+  - docker push emrecavunt/multi-worker
+
+
