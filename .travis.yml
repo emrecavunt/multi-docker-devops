@@ -14,7 +14,7 @@ after_success:
   - docker build -t emrecavunt/multi-server ./server
   - docker build -t emrecavunt/multi-woker ./worker
   #Log in to the docker CLI 
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push emrecavunt/multi-web
   - docker push emrecavunt/multi-nginx
   - docker push emrecavunt/multi-server
